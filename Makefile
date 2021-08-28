@@ -24,7 +24,8 @@ LIBFT		=	$(LIBFT_DIR)/libft.a
 
 # ----- Main Variables ----- #
 SRC_DIR	=	./srcs
-SRC		=	$(SRC_DIR)/push_swap.c
+SRC		=	$(SRC_DIR)/push_swap.c \
+			$(SRC_DIR)/push_swap_utils1.c
 OBJ		=	$(SRC:.c=.o)
 INC		=	-I./includes -I$(LIBFT_DIR)
 
@@ -38,7 +39,7 @@ _INFO		=	[$(YELLOW)INFO$(RESET)]
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	@ $(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(INC) -o $(NAME)
+	@ $(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 	@ printf "$(_SUCCESS) $(NAME) ready.\n"
 
 $(LIBFT):
@@ -46,7 +47,7 @@ $(LIBFT):
 	@ $(MAKE) -C $(LIBFT_DIR)
 
 %.o: %.c
-	@ $(CC) $(CFLAGS) -c $< -o $@
+	@ $(CC) $(CFLAGS) $(INC) -c $< -o $@
 	@ printf '$(_INFO) 🔨 Compiling %s from %s.\n' "$@" "$<"
 
 clean:

@@ -1,19 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap_utils1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lanselin <lanselin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/28 16:35:57 by lanselin          #+#    #+#             */
-/*   Updated: 2021/08/28 16:35:57 by lanselin         ###   ########.fr       */
+/*   Created: 2021/08/28 17:22:31 by lanselin          #+#    #+#             */
+/*   Updated: 2021/08/28 17:22:31 by lanselin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "push_swap_utils1.h"
 
-/* Includes and definitions here. */
-# include "push_swap_utils1.h"
-
-#endif
+/* Some utils functions here. */
