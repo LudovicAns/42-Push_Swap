@@ -25,9 +25,12 @@ LIBFT		=	$(LIBFT_DIR)/libft.a
 # ----- Main Variables ----- #
 SRC_DIR	=	./srcs
 SRC		=	$(SRC_DIR)/push_swap.c \
-			$(SRC_DIR)/push_swap_utils1.c
+			$(SRC_DIR)/push_swap_utils1.c \
+			$(SRC_DIR)/instructions.c
 OBJ		=	$(SRC:.c=.o)
-INC		=	-I./includes -I$(LIBFT_DIR)
+INC		=	-I./includes \
+			-I$(LIBFT_DIR) \
+			-I$(LIBFT_DIR)/stack
 
 # ----- Colors ----- #
 GREEN		=	\e[38;5;118m

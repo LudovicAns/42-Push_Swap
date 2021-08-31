@@ -83,7 +83,7 @@ void	swap_stack(t_stack *mandatory, t_stack *optional, char *info)
  * 	- pa
  * 	- pb
  * 
- * @param	t_stack *from_stack	-	The stack to take the first item.
+ * @param	t_stack **from_stack	-	The stack to take the first item.
  * 
  * @param	t_stack *to_stack	-	The stack to push the item.
  * 
@@ -92,7 +92,7 @@ void	swap_stack(t_stack *mandatory, t_stack *optional, char *info)
  * 
  * @return	Nothing.
  */
-void	push_stack(t_stack *from_stack, t_stack *to_stack, char *info)
+void	push_stack(t_stack **from_stack, t_stack *to_stack, char *info)
 {
 	t_stack	*item;
 
@@ -101,8 +101,10 @@ void	push_stack(t_stack *from_stack, t_stack *to_stack, char *info)
 		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a push.\n", STDERR);
 		return ;
 	}
-	item = ft_stack_getfirst(from_stack);
+	item = ft_stack_getfirst(*from_stack);
 	ft_stack_addfront(to_stack, ft_stack_create(item->integer));
+	*from_stack = item;
+	ft_stack_remove(from_stack);
 	ft_putstr_fd(info, STDOUT);
 }
 
@@ -112,16 +114,16 @@ void	push_stack(t_stack *from_stack, t_stack *to_stack, char *info)
  * 	- rb
  * 	- rr
  * 
- * @param	t_stack *mandatory	-	The stack to rotate.
+ * @param	t_stack **mandatory	-	The stack to rotate.
  * 
- * @param	t_stack *optional	-	The other stack to rotate. (Optional)
+ * @param	t_stack **optional	-	The other stack to rotate. (Optional)
  * 
  * @param	char *info	-	The informations about the rotate action.
  * 						For example, info can be equal to "ra" or "rr"
  * 
  * @return	Nothing.
  */
-void	rotate_stack(t_stack *mandatory, t_stack *optional, char *info)
+void	rotate_stack(t_stack **mandatory, t_stack **optional, char *info)
 {
 	int		save;
 	t_stack	*item;
@@ -131,16 +133,18 @@ void	rotate_stack(t_stack *mandatory, t_stack *optional, char *info)
 		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a rotate.\n", STDERR);
 		return ;
 	}
-	item = ft_stack_getfirst(mandatory);
+	item = ft_stack_getfirst(*mandatory);
 	save = item->integer;
-	ft_stack_remove(&item);
-	ft_stack_addback(mandatory, ft_stack_create(save));
+	*mandatory = item;
+	ft_stack_remove(mandatory);
+	ft_stack_addback(*mandatory, ft_stack_create(save));
 	if (optional)
 	{
-		item = ft_stack_getfirst(optional);
+		item = ft_stack_getfirst(*optional);
 		save = item->integer;
-		ft_stack_remove(&item);
-		ft_stack_addback(optional, ft_stack_create(save));
+		*optional = item;
+		ft_stack_remove(optional);
+		ft_stack_addback(*optional, ft_stack_create(save));
 	}
 	ft_putstr_fd(info, STDOUT);
 }
@@ -151,16 +155,16 @@ void	rotate_stack(t_stack *mandatory, t_stack *optional, char *info)
  * 	- rrb
  * 	- rrr
  * 
- * @param	t_stack *mandatory	-	The stack to reverse rotate.
+ * @param	t_stack **mandatory	-	The stack to reverse rotate.
  * 
- * @param	t_stack *optional	-	The other stack to reverse rotate. (Optional)
+ * @param	t_stack **optional	-	The other stack to reverse rotate. (Optional)
  * 
  * @param	char *info	-	The informations about the reverse rotate action.
  * 						For example, info can be equal to "rra" or "rrr"
  * 
  * @return	Nothing.
  */
-void	reverse_rotate_stack(t_stack *mandatory, t_stack *optional,
+void	reverse_rotate_stack(t_stack **mandatory, t_stack **optional,
 			char *info)
 {
 	int		save;
@@ -172,16 +176,18 @@ void	reverse_rotate_stack(t_stack *mandatory, t_stack *optional,
 			, STDERR);
 		return ;
 	}
-	item = ft_stack_getlast(mandatory);
+	item = ft_stack_getlast(*mandatory);
 	save = item->integer;
-	ft_stack_remove(&item);
-	ft_stack_addfront(mandatory, ft_stack_create(save));
+	*mandatory = item;
+	ft_stack_remove(mandatory);
+	ft_stack_addfront(*mandatory, ft_stack_create(save));
 	if (optional)
 	{
-		item = ft_stack_getlast(optional);
+		item = ft_stack_getlast(*optional);
 		save = item->integer;
-		ft_stack_remove(&item);
-		ft_stack_addfront(optional, ft_stack_create(save));
+		*optional = item;
+		ft_stack_remove(optional);
+		ft_stack_addfront(*optional, ft_stack_create(save));
 	}
 	ft_putstr_fd(info, STDOUT);
 }

@@ -17,9 +17,9 @@
 
 /* Functions from instructions.c */
 void	swap_stack(t_stack *mandatory, t_stack *optional, char *info);
-void	push_stack(t_stack *from_stack, t_stack *to_stack, char *info);
-void	rotate_stack(t_stack *mandatory, t_stack *optional, char *info);
-void	reverse_rotate_stack(t_stack *mandatory, t_stack *optional,
+void	push_stack(t_stack **from_stack, t_stack *to_stack, char *info);
+void	rotate_stack(t_stack **mandatory, t_stack **optional, char *info);
+void	reverse_rotate_stack(t_stack **mandatory, t_stack **optional,
 			char *info);
 
 #endif
