@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils1.h                                 :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lanselin <lanselin@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/28 17:23:19 by lanselin          #+#    #+#             */
-/*   Updated: 2021/08/28 17:23:19 by lanselin         ###   ########.fr       */
+/*   Created: 2021/08/29 18:33:59 by lanselin          #+#    #+#             */
+/*   Updated: 2021/08/29 18:33:59 by lanselin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_UTILS1_H
-# define PUSH_SWAP_UTILS1_H
+#ifndef UTILS_H
+# define UTILS_H
 
-/* Includes and definitions here. */
+# include "libft.h"
+
+/* Functions from instructions.c */
+void	swap_stack(t_stack *mandatory, t_stack *optional, char *info);
+void	push_stack(t_stack *from_stack, t_stack *to_stack, char *info);
+void	rotate_stack(t_stack *mandatory, t_stack *optional, char *info);
+void	reverse_rotate_stack(t_stack *mandatory, t_stack *optional,
+			char *info);
 
 #endif

@@ -10,6 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap_utils1.h"
+#include "push_swap.h"
 
 /* Some utils functions here. */
