@@ -68,11 +68,11 @@ void	swap_stack(t_stack *mandatory, t_stack *optional, char *info)
 		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a swap.\n", STDERR);
 		return ;
 	}
-	stack = ft_stack_getfirst(mandatory);
+	stack = ft_stack_getfirst(&mandatory);
 	ft_swapint(&stack->integer, &stack->next->integer);
 	if (optional)
 	{
-		stack = ft_stack_getfirst(optional);
+		stack = ft_stack_getfirst(&optional);
 		ft_swapint(&stack->integer, &stack->next->integer);
 	}
 	ft_putstr_fd(info, STDOUT);
@@ -101,7 +101,7 @@ void	push_stack(t_stack **from_stack, t_stack *to_stack, char *info)
 		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a push.\n", STDERR);
 		return ;
 	}
-	item = ft_stack_getfirst(*from_stack);
+	item = ft_stack_getfirst(from_stack);
 	ft_stack_addfront(to_stack, ft_stack_create(item->integer));
 	*from_stack = item;
 	ft_stack_remove(from_stack);
@@ -133,18 +133,18 @@ void	rotate_stack(t_stack **mandatory, t_stack **optional, char *info)
 		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a rotate.\n", STDERR);
 		return ;
 	}
-	item = ft_stack_getfirst(*mandatory);
+	item = ft_stack_getfirst(mandatory);
 	save = item->integer;
 	*mandatory = item;
 	ft_stack_remove(mandatory);
-	ft_stack_addback(*mandatory, ft_stack_create(save));
+	ft_stack_addback(mandatory, ft_stack_create(save));
 	if (optional)
 	{
-		item = ft_stack_getfirst(*optional);
+		item = ft_stack_getfirst(optional);
 		save = item->integer;
 		*optional = item;
 		ft_stack_remove(optional);
-		ft_stack_addback(*optional, ft_stack_create(save));
+		ft_stack_addback(optional, ft_stack_create(save));
 	}
 	ft_putstr_fd(info, STDOUT);
 }

@@ -13,29 +13,23 @@
 #include <stdio.h>
 #include "push_swap.h"
 
-int	test(int i)
-{
-	printf("%d\n", i);
-	if (i > 0)
-		test(i - 1);
-	printf("%d\n", i);
-	return (1);
-}
-
 /**
  * Welcome to the main function of push_swap !
  */
-int	main(void)
+int	main(int argc, char **argv)
 {
 	// Try to do those fucking algos !
-	int value;
-	int	*a;
-	int	*temp;
+	t_stack	*stack_a;
 
-	value = 5;
-	a = &value;
-	temp = a;
-	a = NULL;
-	printf("%d\n", *temp);
+	stack_a = NULL;
+	ft_putnbr_fd(argc - 1, STDOUT);
+	ft_putchar_fd('\n', STDOUT);
+	move_args_to_stack(argv, &stack_a);
+	ft_stack_dispfrom_f(&stack_a);
+
+	ft_stack_sort(&stack_a);
+
+
+	ft_stack_dispfrom_f(&stack_a);
 	return (0);
 }

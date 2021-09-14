@@ -26,7 +26,8 @@ LIBFT		=	$(LIBFT_DIR)/libft.a
 SRC_DIR	=	./srcs
 SRC		=	$(SRC_DIR)/push_swap.c \
 			$(SRC_DIR)/push_swap_utils1.c \
-			$(SRC_DIR)/instructions.c
+			$(SRC_DIR)/instructions.c \
+			$(SRC_DIR)/utils.c
 OBJ		=	$(SRC:.c=.o)
 INC		=	-I./includes \
 			-I$(LIBFT_DIR) \

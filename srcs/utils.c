@@ -48,17 +48,20 @@ void	move_args_to_stack(char **args, t_stack **stack_a)
 {
 	long long int		integer;
 	t_stack				*new_item;
+	int					i;
 
-	while (*args)
+	i = 1;
+	while (args[i])
 	{
-		if (!ft_str_isnumeric(*args))
+		if (!ft_str_isnumeric(args[i]))
 			exit_prog(stack_a, NULL, 0);
-		integer = ft_atoi(*args++);
+		integer = ft_atoi(args[i]);
+		i++;
 		if (!ft_isnormal_int(integer))
 			exit_prog(stack_a, NULL, 0);
 		new_item = ft_stack_create(integer);
 		if (!new_item)
 			exit_prog(stack_a, NULL, 0);
-		ft_stack_addback(*stack_a, new_item);
+		ft_stack_addback(stack_a, new_item);
 	}
 }
