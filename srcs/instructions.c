@@ -68,11 +68,11 @@ void	swap_stack(t_stack *mandatory, t_stack *optional, char *info)
 		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a swap.\n", STDERR);
 		return ;
 	}
-	stack = ft_stack_getfirst(&mandatory);
+	stack = ft_stack_getfirst(mandatory);
 	ft_swapint(&stack->integer, &stack->next->integer);
 	if (optional)
 	{
-		stack = ft_stack_getfirst(&optional);
+		stack = ft_stack_getfirst(optional);
 		ft_swapint(&stack->integer, &stack->next->integer);
 	}
 	ft_putstr_fd(info, STDOUT);
@@ -85,23 +85,23 @@ void	swap_stack(t_stack *mandatory, t_stack *optional, char *info)
  * 
  * @param	t_stack **from_stack	-	The stack to take the first item.
  * 
- * @param	t_stack *to_stack	-	The stack to push the item.
+ * @param	t_stack **to_stack	-	The stack to push the item.
  * 
  * @param	char *info	-	The information about the push action. 
  * 						For example, info can be equal to "pa" or "pb".
  * 
  * @return	Nothing.
  */
-void	push_stack(t_stack **from_stack, t_stack *to_stack, char *info)
+void	push_stack(t_stack **from_stack, t_stack **to_stack, char *info)
 {
 	t_stack	*item;
 
-	if (!from_stack || !to_stack)
+	if (!*from_stack)
 	{
 		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a push.\n", STDERR);
 		return ;
 	}
-	item = ft_stack_getfirst(from_stack);
+	item = ft_stack_getfirst(*from_stack);
 	ft_stack_addfront(to_stack, ft_stack_create(item->integer));
 	*from_stack = item;
 	ft_stack_remove(from_stack);
@@ -133,14 +133,14 @@ void	rotate_stack(t_stack **mandatory, t_stack **optional, char *info)
 		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a rotate.\n", STDERR);
 		return ;
 	}
-	item = ft_stack_getfirst(mandatory);
+	item = ft_stack_getfirst(*mandatory);
 	save = item->integer;
 	*mandatory = item;
 	ft_stack_remove(mandatory);
 	ft_stack_addback(mandatory, ft_stack_create(save));
 	if (optional)
 	{
-		item = ft_stack_getfirst(optional);
+		item = ft_stack_getfirst(*optional);
 		save = item->integer;
 		*optional = item;
 		ft_stack_remove(optional);
@@ -180,14 +180,14 @@ void	reverse_rotate_stack(t_stack **mandatory, t_stack **optional,
 	save = item->integer;
 	*mandatory = item;
 	ft_stack_remove(mandatory);
-	ft_stack_addfront(*mandatory, ft_stack_create(save));
+	ft_stack_addfront(mandatory, ft_stack_create(save));
 	if (optional)
 	{
 		item = ft_stack_getlast(*optional);
 		save = item->integer;
 		*optional = item;
 		ft_stack_remove(optional);
-		ft_stack_addfront(*optional, ft_stack_create(save));
+		ft_stack_addfront(optional, ft_stack_create(save));
 	}
 	ft_putstr_fd(info, STDOUT);
 }
