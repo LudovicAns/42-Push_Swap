@@ -96,7 +96,7 @@ void	push_stack(t_stack **from_stack, t_stack **to_stack, char *info)
 {
 	t_stack	*item;
 
-	if (!*from_stack)
+	if (!(*from_stack))
 	{
 		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a push.\n", STDERR);
 		return ;
