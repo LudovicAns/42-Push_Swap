@@ -14,18 +14,23 @@
 # define UTILS_H
 
 # include "libft.h"
+# include "chunks.h"
+
+# ifndef CHUNK_SIZE
+#  define CHUNK_SIZE 20
+# endif
 
 /* Functions from instructions.c */
 
-void	swap_stack(t_stack *mandatory, t_stack *optional, char *info);
-void	push_stack(t_stack **from_stack, t_stack **to_stack, char *info);
-void	rotate_stack(t_stack **mandatory, t_stack **optional, char *info);
-void	reverse_rotate_stack(t_stack **mandatory, t_stack **optional,
-			char *info);
+void		swap_stack(t_stack *mandatory, t_stack *optional, char *info);
+void		push_stack(t_stack **from_stack, t_stack **to_stack, char *info);
+void		rotate_stack(t_stack **mandatory, t_stack **optional, char *info);
+void		reverse_rotate_stack(t_stack **mandatory, t_stack **optional,
+				char *info);
 
 /* Functions from utils.c */
 
-void	exit_prog(t_stack **stack_a, t_stack **stack_b, int exit_status);
-void	move_args_to_stack(char **args, t_stack **stack_a);
+void		exit_prog(t_stack **stack_a, t_stack **stack_b, int exit_status);
+void		move_args_to_stack(char **args, t_stack **stack_a);
 
 #endif
