@@ -134,7 +134,7 @@ int	main(int argc, char **argv)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
-	if (argc == 1)
+	if (argc == 1 || argc > 2)
 		exit(EXIT_FAILURE);
 	stack_a = NULL;
 	stack_b = NULL;

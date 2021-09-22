@@ -43,7 +43,6 @@
  */
 
 #include "utils.h"
-#include <stdio.h>
 
 /**
  * The swap_stack function allow to perform those instructions:
@@ -64,11 +63,6 @@ void	swap_stack(t_stack *mandatory, t_stack *optional, char *info)
 {
 	t_stack	*stack;
 
-	if (!mandatory)
-	{
-		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a swap.\n", STDERR);
-		return ;
-	}
 	stack = ft_stack_getfirst(mandatory);
 	ft_swapint(&stack->integer, &stack->next->integer);
 	if (optional)
@@ -98,10 +92,7 @@ void	push_stack(t_stack **from_stack, t_stack **to_stack, char *info)
 	t_stack	*item;
 
 	if (!(*from_stack))
-	{
-		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a push.\n", STDERR);
 		return ;
-	}
 	item = ft_stack_getfirst(*from_stack);
 	ft_stack_addfront(to_stack, ft_stack_create(item->integer));
 	*from_stack = item;
@@ -129,11 +120,6 @@ void	rotate_stack(t_stack **mandatory, t_stack **optional, char *info)
 	int		save;
 	t_stack	*item;
 
-	if (!mandatory)
-	{
-		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a rotate.\n", STDERR);
-		return ;
-	}
 	item = ft_stack_getfirst(*mandatory);
 	save = item->integer;
 	*mandatory = item;
@@ -171,12 +157,6 @@ void	reverse_rotate_stack(t_stack **mandatory, t_stack **optional,
 	int		save;
 	t_stack	*item;
 
-	if (!mandatory)
-	{
-		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a reverse rotate.\n"
-			, STDERR);
-		return ;
-	}
 	item = ft_stack_getlast(*mandatory);
 	save = item->integer;
 	ft_stack_remove(&item);

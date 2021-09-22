@@ -16,10 +16,6 @@
 # include "libft.h"
 # include "chunks.h"
 
-# ifndef CHUNK_SIZE
-#  define CHUNK_SIZE 20
-# endif
-
 /* Functions from instructions.c */
 
 void		swap_stack(t_stack *mandatory, t_stack *optional, char *info);
