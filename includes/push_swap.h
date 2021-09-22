@@ -23,8 +23,14 @@
 
 /* Function from push_swap_utils1.c */
 
-void		push_min_value(t_stack **stack_x, t_stack **stack_y);
 t_lstchunk	*fill_lstchunk(t_lstchunk **lstchunk, t_stack *stack_a);
+int			get_nearest(t_stack *stack_a, t_chunk *chunk, int *nearest);
+
+/* Function from push_swap_utils2.c */
+
 int			get_chunk_id(t_stack *stack_b);
+void		push_min_value(t_stack **stack_x, t_stack **stack_y);
+void		push_nb_on_top(t_stack **stack, int num, char stack_name);
+int			get_boundary(t_stack *stack_b, int nearest);
 
 #endif

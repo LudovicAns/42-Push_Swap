@@ -43,6 +43,7 @@
  */
 
 #include "utils.h"
+#include <stdio.h>
 
 /**
  * The swap_stack function allow to perform those instructions:
@@ -96,7 +97,7 @@ void	push_stack(t_stack **from_stack, t_stack **to_stack, char *info)
 {
 	t_stack	*item;
 
-	if (!*from_stack)
+	if (!(*from_stack))
 	{
 		ft_putstr_color_fd(ANSI_COLOR_RED, "Error with a push.\n", STDERR);
 		return ;
@@ -178,15 +179,13 @@ void	reverse_rotate_stack(t_stack **mandatory, t_stack **optional,
 	}
 	item = ft_stack_getlast(*mandatory);
 	save = item->integer;
-	*mandatory = item;
-	ft_stack_remove(mandatory);
+	ft_stack_remove(&item);
 	ft_stack_addfront(mandatory, ft_stack_create(save));
 	if (optional)
 	{
 		item = ft_stack_getlast(*optional);
 		save = item->integer;
-		*optional = item;
-		ft_stack_remove(optional);
+		ft_stack_remove(&item);
 		ft_stack_addfront(optional, ft_stack_create(save));
 	}
 	ft_putstr_fd(info, STDOUT);

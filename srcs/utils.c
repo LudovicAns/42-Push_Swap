@@ -35,7 +35,7 @@ void	exit_prog(t_stack **stack_a, t_stack **stack_b, int exit_status)
 		ft_stack_clear(stack_b);
 	if (!exit_status)
 	{
-		ft_putstr_fd("Error\n", STDERR);
+		ft_putstr_fd("Error\n", STDOUT);
 		exit(EXIT_FAILURE);
 	}
 	exit(EXIT_SUCCESS);
@@ -49,13 +49,15 @@ void	move_args_to_stack(char **args, t_stack **stack_a)
 	long long int		integer;
 	t_stack				*new_item;
 	int					i;
+	char				**splited;
 
-	i = 1;
-	while (args[i])
+	i = 0;
+	splited = ft_split(args[1], ' ');
+	while (splited[i])
 	{
-		if (!ft_str_isnumeric(args[i]))
+		if (!ft_str_isnumeric(splited[i]))
 			exit_prog(stack_a, NULL, 0);
-		integer = ft_atoi(args[i]);
+		integer = ft_atoi(splited[i]);
 		i++;
 		if (!ft_isnormal_int(integer))
 			exit_prog(stack_a, NULL, 0);
@@ -64,4 +66,13 @@ void	move_args_to_stack(char **args, t_stack **stack_a)
 			exit_prog(stack_a, NULL, 0);
 		ft_stack_addback(stack_a, new_item);
 	}
+	if (ft_stack_has_dup(stack_a))
+		exit_prog(stack_a, NULL, 0);
+	i = 0;
+	while (splited[i])
+	{
+		free(splited[i]);
+		i++;
+	}
+	free(splited);
 }

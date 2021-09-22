@@ -16,37 +16,6 @@
 /* Some utils functions here. */
 
 /**
- * The push_min_value function push the lowest integer of stack_x to 
- * the stack_y (using push_swap rules).
- * 
- * @param	t_stack **stack_x	-	Address of the stack used to push.
- * 
- * @param	t_stack **stack_y	-	Address of the pushed stack.
- * 
- * @result	Nothing.
- */
-void	push_min_value(t_stack **stack_x, t_stack **stack_y)
-{
-	int	min;
-
-	min = ft_stack_getmin(*stack_x);
-	while ((*stack_x)->integer != min)
-	{
-		if ((*stack_x)->integer != min && (*stack_x)->next->integer != min)
-		{
-			reverse_rotate_stack(stack_x, NULL, "rra\n");
-			*stack_x = ft_stack_getfirst(*stack_x);
-		}
-		else
-		{
-			rotate_stack(stack_x, NULL, "ra\n");
-			*stack_x = ft_stack_getfirst(*stack_x);
-		}
-	}
-	push_stack(stack_x, stack_y, "pb\n");
-}
-
-/**
  * !It's a norm function! 
  * 
  * The fill_lstchunk_util function add back to the list of chunk 
@@ -108,16 +77,93 @@ t_lstchunk	*fill_lstchunk(t_lstchunk **lstchunk, t_stack *stack_a)
 }
 
 /**
- * The get_chunk_id function determine which chunk the program need 
- * to use to find the next number to push in stack_b.
- * For that, the function count the size of the stack_b and divide it by 
- * CHUNK_SIZE + 1 defined in push_swap.h.
+ * This function is a part of get_nearest() only !
  * 
- * @param	t_stack *stack_b	-	Pointer to the stack_b.
+ * The get_nearest_from_bottom return the nearest number from 
+ * the bottom of stack which is also present in chunk.
  * 
- * @return The id of the chunk who need to be used.
+ * @param	t_stack *stack	-	Stack to search.
+ * 
+ * @param	t_chunk *chunk	-	Chunk used.
+ * 
+ * @return	Nearest number from bottom.
  */
-int	get_chunk_id(t_stack *stack_b)
+static int get_nearest_from_bottom(t_stack *stack, t_chunk *chunk)
 {
-	return (ft_stack_size(stack_b) / CHUNK_SIZE + 1);
+	stack = ft_stack_getlast(stack);
+	while (stack)
+	{
+		if (ft_stack_contain(chunk->values, stack->integer))
+			return (stack->integer);
+		stack = stack->previous;
+	}
+	return (0);
+}
+
+/**
+ * This function is a part of get_nearest() only !
+ * 
+ * The get_nearest_from_top return the nearest number from 
+ * the top of stack which is also present in chunk.
+ * 
+ * @param	t_stack *stack	-	Stack to search.
+ * 
+ * @param	t_chunk *chunk	-	Chunk used.
+ * 
+ * @return	Nearest number from top.
+ */
+static int get_nearest_from_top(t_stack *stack, t_chunk *chunk)
+{
+	stack = ft_stack_getfirst(stack);
+	while (stack)
+	{
+		if (ft_stack_contain(chunk->values, stack->integer))
+			return (stack->integer);
+		stack = stack->next;
+	}
+	return (0);
+}
+
+/**
+ * The get_nearest function search in stack_a a number who is in 
+ * chunk's values. It compare first the nearest by the top of stack_a 
+ * and secondly by the bottom of stack_a. 
+ * It will count needed actions to move each of them to the top of the 
+ * stack. The nearest who has the less actions count will be
+ * returned. 
+ * If action count is equal for each of them, the nearest who is the most 
+ * on the top of the stack will be returned.
+ * 
+ * @param	t_stack *stack_a	-	pointer to stack_a.
+ * 
+ * @param	t_chunk	*chunk	-	Chunk used to search nearest.
+ * 
+ * @param	int *nearest	-	Pointer to the value of the nearest.
+ * 
+ * @return	The nearest integer in stack_a also contained in the given 
+ * 			chunk. And the pointer to nearest is actualized.
+ */
+int	get_nearest(t_stack *stack_a, t_chunk *chunk, int *nearest)
+{
+	int stack_size;
+	int	hold_first_idx;
+	int	hold_second_idx;
+
+	stack_size = ft_stack_size(stack_a);
+	hold_first_idx = ft_stack_find(stack_a,
+		get_nearest_from_top(stack_a, chunk));
+	hold_second_idx = ft_stack_find(stack_a,
+		get_nearest_from_bottom(stack_a, chunk));
+	if (hold_first_idx <= (stack_size - hold_second_idx))
+	{
+		hold_first_idx = ft_stack_getvalue(stack_a, hold_first_idx);
+		*nearest = hold_first_idx;
+		return (hold_first_idx);
+	}
+	else
+	{
+		hold_second_idx = ft_stack_getvalue(stack_a, hold_second_idx);
+		*nearest = hold_second_idx;
+		return (hold_second_idx);
+	}
 }

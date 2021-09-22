@@ -26,6 +26,7 @@ LIBFT		=	$(LIBFT_DIR)/libft.a
 SRC_DIR	=	./srcs
 SRC		=	$(SRC_DIR)/push_swap.c \
 			$(SRC_DIR)/push_swap_utils1.c \
+			$(SRC_DIR)/push_swap_utils2.c \
 			$(SRC_DIR)/instructions.c \
 			$(SRC_DIR)/chunk_utils1.c \
 			$(SRC_DIR)/lstchunk_utils1.c \
