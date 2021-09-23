@@ -22,9 +22,9 @@
  * 
  * @return The id of the chunk who need to be used.
  */
-int	get_chunk_id(t_stack *stack_b)
+int	get_chunk_id(t_stack *stack_b, int chunk_size)
 {
-	return (ft_stack_size(stack_b) / CHUNK_SIZE + 1);
+	return (ft_stack_size(stack_b) / chunk_size + 1);
 }
 
 /**
@@ -133,9 +133,9 @@ void	push_nb_on_top(t_stack **stack, int num, char stack_name)
  */
 int	get_boundary(t_stack *stack_b, int nearest)
 {
-	t_stack *tmp;
-	int	diff;
-	int	num;
+	t_stack	*tmp;
+	int		diff;
+	int		num;
 
 	diff = INTMAX;
 	num = 0;

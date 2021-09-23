@@ -33,8 +33,9 @@ static void	fill_lstchunk_util(t_lstchunk **lstchunk, t_chunk **chunk,
 	(*chunk)->values = *values;
 	ft_lstchunk_addback(lstchunk, ft_lstchunk_create(*chunk));
 	*chunk = NULL;
-	*values = NULL;	
+	*values = NULL;
 }
+
 /**
  * The fill_lstchunk function fill the list of chunks using a sorted 
  * version of the stack_a. To define the size of a chunk we use 
@@ -45,9 +46,12 @@ static void	fill_lstchunk_util(t_lstchunk **lstchunk, t_chunk **chunk,
  * 
  * @param	t_stack *stack_a	-	Pointer to the first node of stack_a.
  * 
+ * @param	int *chunk_size	-	Size of one chunk.
+ * 
  * @return	Pointer to the first node of the lstchunk.
  */
-t_lstchunk	*fill_lstchunk(t_lstchunk **lstchunk, t_stack *stack_a)
+t_lstchunk	*fill_lstchunk(t_lstchunk **lstchunk, t_stack *stack_a,
+	int chunk_size)
 {
 	t_stack	*copy;
 	t_chunk	*chunk;
@@ -62,12 +66,12 @@ t_lstchunk	*fill_lstchunk(t_lstchunk **lstchunk, t_stack *stack_a)
 	while (i < ft_stack_size(copy))
 	{
 		if (!chunk)
-			chunk = ft_chunk_create(i / CHUNK_SIZE + 1, NULL);
+			chunk = ft_chunk_create(i / chunk_size + 1, NULL);
 		ft_stack_addback(&values, ft_stack_create(copy->integer));
 		i++;
 		if (copy->next)
 			copy = copy->next;
-		if ((i % CHUNK_SIZE == 0 && chunk != NULL)
+		if ((i % chunk_size == 0 && chunk != NULL)
 			|| i == ft_stack_size(copy))
 			fill_lstchunk_util(lstchunk, &chunk, &values);
 	}
@@ -87,7 +91,7 @@ t_lstchunk	*fill_lstchunk(t_lstchunk **lstchunk, t_stack *stack_a)
  * 
  * @return	Nearest number from bottom.
  */
-static int get_nearest_from_bottom(t_stack *stack, t_chunk *chunk)
+static int	get_nearest_from_bottom(t_stack *stack, t_chunk *chunk)
 {
 	stack = ft_stack_getlast(stack);
 	while (stack)
@@ -111,7 +115,7 @@ static int get_nearest_from_bottom(t_stack *stack, t_chunk *chunk)
  * 
  * @return	Nearest number from top.
  */
-static int get_nearest_from_top(t_stack *stack, t_chunk *chunk)
+static int	get_nearest_from_top(t_stack *stack, t_chunk *chunk)
 {
 	stack = ft_stack_getfirst(stack);
 	while (stack)
@@ -144,15 +148,15 @@ static int get_nearest_from_top(t_stack *stack, t_chunk *chunk)
  */
 int	get_nearest(t_stack *stack_a, t_chunk *chunk, int *nearest)
 {
-	int stack_size;
+	int	stack_size;
 	int	hold_first_idx;
 	int	hold_second_idx;
 
 	stack_size = ft_stack_size(stack_a);
 	hold_first_idx = ft_stack_find(stack_a,
-		get_nearest_from_top(stack_a, chunk));
+			get_nearest_from_top(stack_a, chunk));
 	hold_second_idx = ft_stack_find(stack_a,
-		get_nearest_from_bottom(stack_a, chunk));
+			get_nearest_from_bottom(stack_a, chunk));
 	if (hold_first_idx <= (stack_size - hold_second_idx))
 	{
 		hold_first_idx = ft_stack_getvalue(stack_a, hold_first_idx);

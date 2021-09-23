@@ -57,36 +57,29 @@ static void	medium_algo_sort(t_stack **stack_a, t_stack **stack_b)
 		push_stack(stack_b, stack_a, "pa\n");
 }
 
-static void big_algo_sort(t_stack **stack_a, t_stack **stack_b,
+static void	big_algo_sort(t_stack **stack_a, t_stack **stack_b,
 	int args_size)
 {
 	t_lstchunk	*lstchunk;
 	int			nearest;
+	int			chunk_size;
 
+	chunk_size = get_chunk_size(*stack_a);
 	lstchunk = NULL;
-	lstchunk = fill_lstchunk(&lstchunk, *stack_a);
+	lstchunk = fill_lstchunk(&lstchunk, *stack_a, chunk_size);
 	nearest = 0;
 	while (ft_stack_size(*stack_b) != args_size)
 	{
-		// 1.Find nearest number in stack_a and the chunk id get_chunk_id.
-		// 2.Push it (in the most optimized way as possible) to the top of 
-		//   the stack_a.
 		push_nb_on_top(stack_a,
 			get_nearest(*stack_a, ft_lstchunk_getchunk(lstchunk,
-				get_chunk_id(*stack_b)), &nearest), 'a');
-		// 3.Determine the superior born number of it.
-		// 4.Push his superior born number to the top of the stack_b. (In 
-		//   the most optimized way as possible again...)
+					get_chunk_id(*stack_b, chunk_size)), &nearest), 'a');
 		if (*stack_b)
 			push_nb_on_top(stack_b, get_boundary(*stack_b, nearest), 'b');
-		// 5.Push the nearest number to the stack_b.
 		push_stack(stack_a, stack_b, "pb\n");
 	}
 	push_nb_on_top(stack_b, ft_stack_getmax(*stack_b), 'b');
-	// 6.Push all numbers in stack_b directly in stack_a.
 	while (*stack_b)
 		push_stack(stack_b, stack_a, "pa\n");
-	// 7. Good job, you sort the stack_a !
 	ft_lstchunk_clear(&lstchunk);
 }
 
@@ -113,19 +106,6 @@ static void	sort(t_stack **stack_a, t_stack **stack_b)
 		big_algo_sort(stack_a, stack_b, ft_stack_size(*stack_a));
 }
 
-void	fill_stack(int from, int to, t_stack **stack)
-{
-	while (from != to)
-	{
-		ft_stack_addback(stack, ft_stack_create(from));
-		if (from > to)
-			from--;
-		else
-			from++;
-	}
-	ft_stack_addback(stack, ft_stack_create(from));
-}
-
 /**
  * Welcome to the main function of push_swap !
  */
@@ -134,8 +114,11 @@ int	main(int argc, char **argv)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
-	if (argc == 1 || argc > 2)
+	if (argc == 1)
+	{
+		ft_putstr_fd("Error\n", STDERR);
 		exit(EXIT_FAILURE);
+	}
 	stack_a = NULL;
 	stack_b = NULL;
 	move_args_to_stack(argv, &stack_a);

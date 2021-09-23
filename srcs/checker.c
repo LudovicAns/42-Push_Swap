@@ -29,21 +29,19 @@
  * @return	Nothing.
  */
 static void	exit_checker(t_stack **stack_a, t_stack **stack_b,
-	t_list **instructions, int status, char *line)
+	t_list **instructions, int status)
 {
 	if (*stack_a)
 		ft_stack_clear(stack_a);
-	if (*stack_b)
+	if (stack_b && *stack_b)
 		ft_stack_clear(stack_b);
 	if (*instructions)
 	{
 		while (*instructions)
 			ft_lstremove(instructions);
 	}
-	if (line)
-		free(line);
 	if (status == -1)
-		ft_putstr_fd("Error\n", STDOUT);
+		ft_putstr_fd("Error\n", STDERR);
 	else if (!status)
 		ft_putstr_fd("KO\n", STDOUT);
 	else if (status == 1)
@@ -69,23 +67,26 @@ static void	fill_instructions(t_list **instructions, t_stack **stack_a)
 {
 	char	*line;
 	t_list	*new_node;
-	
+
 	line = NULL;
 	while (get_next_line(STDIN_FILENO, &line))
 	{
-		if (!(!ft_strcmp("sa", line) || !ft_strcmp("sb", line)
-			|| !ft_strcmp("ss", line) || !ft_strcmp("pa", line)
-			|| !ft_strcmp("pb", line) || !ft_strcmp("ra", line)
-			|| !ft_strcmp("rb", line) || !ft_strcmp("rr", line)
-			|| !ft_strcmp("rra", line) || !ft_strcmp("rrb", line)
-			|| !ft_strcmp("rrr", line)))
-			exit_checker(stack_a, NULL, instructions, 0, line);
+		if (!(!ft_strcmp("sa\0", line) || !ft_strcmp("sb\0", line)
+				|| !ft_strcmp("ss\0", line) || !ft_strcmp("pa\0", line)
+				|| !ft_strcmp("pb\0", line) || !ft_strcmp("ra\0", line)
+				|| !ft_strcmp("rb\0", line) || !ft_strcmp("rr\0", line)
+				|| !ft_strcmp("rra\0", line) || !ft_strcmp("rrb\0", line)
+				|| !ft_strcmp("rrr\0", line)))
+			exit_checker(stack_a, NULL, instructions, 0);
 		new_node = ft_lstnew(ft_strdup(line));
+		if (line)
+		{
+			free(line);
+			line = NULL;
+		}
 		if (!new_node)
-			exit_checker(stack_a, NULL, instructions, 0, line);
+			exit_checker(stack_a, NULL, instructions, 0);
 		ft_lstadd_back(instructions, new_node);
-		free(line);
-		line = NULL;
 	}
 	if (line)
 		free(line);
@@ -159,18 +160,16 @@ int	main(int argc, char **argv)
 	t_stack	*stack_b;
 	t_list	*instructions;
 
-	if (argc == 1 || argc > 2)
-		exit(1);
+	if (argc == 1)
+		exit(EXIT_FAILURE);
 	stack_a = NULL;
 	stack_b = NULL;
 	instructions = NULL;
 	move_args_to_stack(argv, &stack_a);
 	fill_instructions(&instructions, &stack_a);
 	do_instructions(&stack_a, &stack_b, instructions);
-	// if (!stack_a)
-		// exit_checker(&stack_a, &stack_b, &instructions, -1, NULL);
 	if (ft_stack_issorted(&stack_a) && !stack_b)
-		exit_checker(&stack_a, &stack_b, &instructions, 1, NULL);
-	exit_checker(&stack_a, &stack_b, &instructions, 0, NULL);
+		exit_checker(&stack_a, &stack_b, &instructions, 1);
+	exit_checker(&stack_a, &stack_b, &instructions, 0);
 	return (0);
 }

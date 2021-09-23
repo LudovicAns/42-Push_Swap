@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   chunks.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lanselin <lanselin@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lanselin <lanselin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/20 16:57:35 by lanselin          #+#    #+#             */
-/*   Updated: 2021/09/20 16:57:35 by lanselin         ###   ########.fr       */
+/*   Created: 2021/09/23 15:17:01 by lanselin          #+#    #+#             */
+/*   Updated: 2021/09/23 15:17:01 by lanselin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHUNKS
-# define CHUNKS
+#ifndef CHUNKS_H
+# define CHUNKS_H
 
 # include "libft.h"
 
@@ -21,7 +21,7 @@ typedef struct s_chunk
 	t_stack	*values;
 }	t_chunk;
 
-typedef struct	s_lstchunk
+typedef struct s_lstchunk
 {
 	struct s_lstchunk	*previous;
 	t_chunk				*actual;

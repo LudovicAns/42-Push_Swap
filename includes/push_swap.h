@@ -17,20 +17,21 @@
 # include "libft.h"
 # include "utils.h"
 
-# ifndef CHUNK_SIZE
-#  define CHUNK_SIZE 20
-# endif
-
 /* Function from push_swap_utils1.c */
 
-t_lstchunk	*fill_lstchunk(t_lstchunk **lstchunk, t_stack *stack_a);
+t_lstchunk	*fill_lstchunk(t_lstchunk **lstchunk, t_stack *stack_a,
+				int chunk_size);
 int			get_nearest(t_stack *stack_a, t_chunk *chunk, int *nearest);
 
 /* Function from push_swap_utils2.c */
 
-int			get_chunk_id(t_stack *stack_b);
+int			get_chunk_id(t_stack *stack_b, int chunk_size);
 void		push_min_value(t_stack **stack_x, t_stack **stack_y);
 void		push_nb_on_top(t_stack **stack, int num, char stack_name);
 int			get_boundary(t_stack *stack_b, int nearest);
+
+/* Function from push_swap_utils3.c */
+
+int			get_chunk_size(t_stack *stack_a);
 
 #endif

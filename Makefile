@@ -29,6 +29,7 @@ LIBFT		=	$(LIBFT_DIR)/libft.a
 SRC_DIR		=	./srcs
 SRC			=	$(SRC_DIR)/push_swap_utils1.c \
 				$(SRC_DIR)/push_swap_utils2.c \
+				$(SRC_DIR)/push_swap_utils3.c \
 				$(SRC_DIR)/instructions.c \
 				$(SRC_DIR)/chunk_utils1.c \
 				$(SRC_DIR)/lstchunk_utils1.c \
@@ -53,7 +54,7 @@ $(NAME): $(LIBFT) $(OBJ)
 	@ $(CC) $(CFLAGS) $(OBJ) $(NAME_MAIN) $(LIBFT) $(INC) -o $(NAME)
 	@ printf "$(_SUCCESS) $(NAME) ready.\n"
 
-$(CHECKER): $(LIBFT) $(CHECKER_OBJ)
+$(CHECKER): $(LIBFT) $(OBJ) $(CHECKER_OBJ)
 	@ $(CC) $(CFLAGS) $(OBJ) $(CHECKER_OBJ) $(CHECKER_MAIN) $(LIBFT) $(INC) -o $(CHECKER)
 	@ printf "$(_SUCCESS) $(CHECKER) ready.\n"
 
