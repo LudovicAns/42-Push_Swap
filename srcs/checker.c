@@ -77,7 +77,7 @@ static void	fill_instructions(t_list **instructions, t_stack **stack_a)
 				|| !ft_strcmp("rb\0", line) || !ft_strcmp("rr\0", line)
 				|| !ft_strcmp("rra\0", line) || !ft_strcmp("rrb\0", line)
 				|| !ft_strcmp("rrr\0", line)))
-			exit_checker(stack_a, NULL, instructions, 0);
+			exit_checker(stack_a, NULL, instructions, -1);
 		new_node = ft_lstnew(ft_strdup(line));
 		if (line)
 		{

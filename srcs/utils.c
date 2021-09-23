@@ -44,18 +44,21 @@ void	exit_prog(t_stack **stack_a, t_stack **stack_b, int exit_status)
 /**
  * Need documentation.
  */
-void	move_args_to_stack(char **args, t_stack **stack_a)
+void	treat_arg(char *arg, t_stack **stack_a)
 {
-	long long int		integer;
-	t_stack				*new_item;
-	int					i;
+	long long int	integer;
+	t_stack			*new_item;
+	int				i;
+	char			**splited;	
 
-	i = 1;
-	while (args[i])
+	i = 0;
+	splited = ft_split(arg, ' ');
+	while (splited[i])
 	{
-		if (!ft_str_isnumeric(args[i]))
+		if (!ft_str_isnumeric(splited[i]))
 			exit_prog(stack_a, NULL, 0);
-		integer = ft_atoi(args[i]);
+		integer = ft_atoi(splited[i]);
+		free(splited[i]);
 		i++;
 		if (!ft_isnormal_int(integer))
 			exit_prog(stack_a, NULL, 0);
@@ -64,6 +67,20 @@ void	move_args_to_stack(char **args, t_stack **stack_a)
 			exit_prog(stack_a, NULL, 0);
 		ft_stack_addback(stack_a, new_item);
 	}
+	if (splited)
+		free(splited);
+}
+
+/**
+ * Need documentation.
+ */
+void	move_args_to_stack(char **args, t_stack **stack_a)
+{
+	int	i;
+
+	i = 1;
+	while (args[i])
+		treat_arg(args[i++], stack_a);
 	if (ft_stack_has_dup(stack_a))
 		exit_prog(stack_a, NULL, 0);
 }

@@ -115,10 +115,7 @@ int	main(int argc, char **argv)
 	t_stack	*stack_b;
 
 	if (argc == 1)
-	{
-		ft_putstr_fd("Error\n", STDERR);
 		exit(EXIT_FAILURE);
-	}
 	stack_a = NULL;
 	stack_b = NULL;
 	move_args_to_stack(argv, &stack_a);

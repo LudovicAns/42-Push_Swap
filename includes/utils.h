@@ -27,6 +27,7 @@ void		reverse_rotate_stack(t_stack **mandatory, t_stack **optional,
 /* Functions from utils.c */
 
 void		exit_prog(t_stack **stack_a, t_stack **stack_b, int exit_status);
+void		treat_arg(char *arg, t_stack **stack_a);
 void		move_args_to_stack(char **args, t_stack **stack_a);
 
 #endif
