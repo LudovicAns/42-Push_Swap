@@ -25,5 +25,5 @@ int	get_chunk_size(t_stack *stack_a)
 	if (ft_stack_size(stack_a) >= 500)
 		return (500 / 11);
 	else
-		return ((10 * ft_stack_size(stack_a)) / 100);
+		return (20);
 }
